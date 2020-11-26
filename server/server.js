@@ -1,5 +1,6 @@
 require('./config/config');
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
 
@@ -42,6 +43,16 @@ app.put('/usuario/:id/:nombre', function(req,res){
     id: id,
     nombre: nombre
   });
+});
+
+mongoose.connect('mongodb:0//localhost:27017/cafeteria', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+},(err, res) => {
+  if(err) throw err;
+  console.log('Base de datos online');
 });
 
 app.listen(process.env.PORT, () => {
